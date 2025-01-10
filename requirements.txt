@@ -1,0 +1,6 @@
+pymongo
+langchain
+langchain-fireworks
+langgraph
+langgraph-checkpoint-mongodb
+sentence_transformers
