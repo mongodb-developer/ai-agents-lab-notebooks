@@ -10,13 +10,14 @@ SERVERLESS_URL="https://vtqjvgchmwcjwsrela2oyhlegu0hwqnw.lambda-url.us-west-2.on
 echo "Fetching secrets from the proxy service..."
 response=$(curl -s -w "\n%{http_code}" -X POST \
     -H "Content-Type: application/json" \
-    -d "{\"task\": \"get_secrets\", \"provider\": \"$PROVIDER\"}" \
+    -d "{\"task\": \"get_secrets\", \"data\": {\"token\": \"devday\", \"provider\": \"$PROVIDER\"}}" \
     "$SERVERLESS_URL")
 
 http_code=$(echo "$response" | tail -n1)
 response_body=$(echo "$response" | sed '$d')
 
 # Check for errors
+echo $http_code
 if [[ $http_code -ne 200 ]]; then
     echo "Error: Failed to fetch secrets from the proxy service."
     exit 1
