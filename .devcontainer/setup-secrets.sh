@@ -1,5 +1,3 @@
-#!/bin/bash
-
 read -p "Enter LLM provider. Value should be one of aws, google or microsoft: " provider
 PROVIDER=$provider
 
