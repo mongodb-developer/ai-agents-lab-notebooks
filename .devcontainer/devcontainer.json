@@ -4,9 +4,9 @@
         "ghcr.io/devcontainers/features/common-utils:1": {}
     },
     "hostRequirements": {"cpus": 4},
+    "onCreateCommand": "./.devcontainer/setup-secrets.sh",
     "waitFor": "onCreateCommand",
     "updateContentCommand": "python3 -m pip install -r requirements.txt",
-    "postCreateCommand": "./.devcontainer/setup-secrets.sh",
     "customizations": {
         "codespaces": {"openFiles": []},
         "vscode": {"extensions": ["ms-toolsai.jupyter", "ms-python.python"]},
