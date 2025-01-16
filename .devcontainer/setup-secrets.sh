@@ -17,7 +17,6 @@ http_code=$(echo "$response" | tail -n1)
 response_body=$(echo "$response" | sed '$d')
 
 # Check for errors
-echo $http_code
 if [[ $http_code -ne 200 ]]; then
     echo "Error: Failed to fetch secrets from the proxy service."
     exit 1
