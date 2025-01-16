@@ -1,5 +1,4 @@
-read -p "Enter LLM provider. Value should be one of aws, google or microsoft: " provider
-PROVIDER=$provider
+echo "LLM provider set to $LLM_PROVIDER"
 
 # Configuration
 SERVERLESS_URL="https://vtqjvgchmwcjwsrela2oyhlegu0hwqnw.lambda-url.us-west-2.on.aws/"
@@ -8,7 +7,7 @@ SERVERLESS_URL="https://vtqjvgchmwcjwsrela2oyhlegu0hwqnw.lambda-url.us-west-2.on
 echo "Fetching secrets from the proxy service..."
 response=$(curl -s -w "\n%{http_code}" -X POST \
     -H "Content-Type: application/json" \
-    -d "{\"task\": \"get_secrets\", \"data\": {\"token\": \"devday\", \"provider\": \"$PROVIDER\"}}" \
+    -d "{\"task\": \"get_secrets\", \"data\": {\"token\": \"devday\", \"provider\": \"$LLM_PROVIDER\"}}" \
     "$SERVERLESS_URL")
 
 http_code=$(echo "$response" | tail -n1)
