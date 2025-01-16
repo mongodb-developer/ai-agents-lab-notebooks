@@ -1,6 +1,7 @@
 pymongo
 langchain
-langchain-fireworks
+langchain-aws
+langchain-google-genai
 langgraph
 langgraph-checkpoint-mongodb
 sentence_transformers
