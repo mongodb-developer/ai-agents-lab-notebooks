@@ -1,9 +1,16 @@
-echo "LLM provider set to $LLM_PROVIDER"
+#!/bin/bash
+if [ -n "$1" ]; then
+    LLM_PROVIDER="$1"
+else
+    LLM_PROVIDER="aws"
+fi
+export LLM_PROVIDER
 
 # Configuration
 SERVERLESS_URL="https://vtqjvgchmwcjwsrela2oyhlegu0hwqnw.lambda-url.us-west-2.on.aws/"
+export SERVERLESS_URL
 
-# Fetch secrets from the proxy service
+# Fetch environment variables from the proxy service
 echo "Fetching secrets from the proxy service..."
 response=$(curl -s -w "\n%{http_code}" -X POST \
     -H "Content-Type: application/json" \
@@ -19,8 +26,9 @@ if [[ $http_code -ne 200 ]]; then
     exit 1
 fi
 
-# Save secrets to an environment file
-echo "$response_body" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' > .env
-echo "SERVERLESS_URL=$SERVERLESS_URL" >> .env
+# Set environment variables
+echo "$response_body" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' | while IFS= read -r line; do
+    export "$line"
+done
 
 echo "Environment variables successfully configured."
